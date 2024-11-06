@@ -52,6 +52,12 @@ class Client
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $ceidgUrl = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $taxId = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $status = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -218,5 +224,25 @@ class Client
         $this->ceidgUrl = $ceidgUrl;
 
         return $this;
+    }
+
+    public function getTaxId(): ?string
+    {
+        return $this->taxId;
+    }
+
+    public function setTaxId(?string $taxId): void
+    {
+        $this->taxId = $taxId;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $status): void
+    {
+        $this->status = $status;
     }
 }

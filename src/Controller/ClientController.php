@@ -50,16 +50,17 @@ final class ClientController extends AbstractController
         ];
 
         $filters = array_filter($filters);
-        $clients = $this->CEIDGService->fetchClientsFiltered($filters);
+        $clients = $this->CEIDGService->fetchAndSaveClientsFiltered($filters);
 
-        if (is_array($clients)) {
+        if (!is_array($clients)) {
             return $this->json([
-                'data' => $clients
-            ]);
+                'error' => $clients
+            ], 500);
         }
 
         return $this->json([
-            'error' => $clients
-        ], 500);
+            'message' => 'Clients import finished',
+            'data' => $clients
+        ]);
     }
 }

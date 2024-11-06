@@ -18,7 +18,7 @@ class ClientType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('ceidgId', IntegerType::class, [
+            ->add('ceidgId', TextType::class, [
                 'constraints' => [
                     new Length(max: 255)
                 ]
@@ -81,6 +81,16 @@ class ClientType extends AbstractType
                 ]
             ])
             ->add('ceidgUrl', TextType::class, [
+                'constraints' => [
+                    new Length(max: 255)
+                ]
+            ])
+            ->add('taxId', TextType::class, [
+                'constraints' => [
+                    new Length(max: 255)
+                ]
+            ])
+            ->add('status', TextType::class, [
                 'constraints' => [
                     new Length(max: 255)
                 ]
