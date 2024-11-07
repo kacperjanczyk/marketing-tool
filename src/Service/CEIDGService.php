@@ -194,9 +194,9 @@ class CEIDGService
             }
 
             $this->entityManager->persist($client);
-            $this->entityManager->flush();
             $result['added']++;
         }
+        $this->entityManager->flush();
 
         return $result;
     }
