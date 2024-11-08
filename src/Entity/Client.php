@@ -55,7 +55,7 @@ class Client
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $taxId = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 255)]
     private ?string $status = null;
 
     public function getId(): ?int

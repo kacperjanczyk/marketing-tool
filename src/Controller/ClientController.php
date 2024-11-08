@@ -24,62 +24,65 @@ final class ClientController extends AbstractController
     #[Route(name: 'app_client_controller_index', methods: ['GET'])]
     public function index(ClientRepository $clientRepository): Response
     {
-        return $this->json([
+        return $this->render('client_controller/index.html.twig', [
             'clients' => $clientRepository->findAll()
         ]);
     }
 
-    #[Route('/new', name: 'app_client_new', methods: ['POST'])]
+    #[Route('/new', name: 'app_client_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
         $client = new Client();
 
         $form = $this->createForm(ClientType::class, $client);
-        $form->submit(json_decode($request->getContent(), true));
+        $form->handleRequest($request);
 
-        if (!$form->isValid()) {
-            return $this->json(['error' => $form->getErrors(true)], 400);
+        if ($form->isSubmitted()  && $form->isValid()) {
+            $this->entityManager->persist($client);
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('app_client_controller_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        $this->entityManager->persist($client);
-        $this->entityManager->flush();
-
-        return $this->json(['message' => 'Client added successfully']);
+        return $this->render('client_controller/new.html.twig', [
+            'client' => $client,
+            'form' => $form
+        ]);
     }
 
     #[Route('/{id}', name: 'app_client_controller_show', methods: ['GET'])]
     public function show(Client $client): Response
     {
-        return $this->json([
-            'client' => $client
+        return $this->render('client_controller/edit.html.twig', [
+            'client' => $client,
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_client_controller_edit', methods: ['GET', 'PUT'])]
-    public function edit(Request $request, Client $client): Response
+    #[Route('/{id}', name: 'app_client_controller_details', methods: ['PUT'])]
+    public function details(Request $request, Client $client): Response
     {
         $form = $this->createForm(ClientType::class, $client);
-        if ($request->getMethod() === 'GET') {
-            return $this->json([
-                'form' => $form->createView()
-            ]);
-        }
+        $form->handleRequest($request);
 
-        $form->submit(json_decode($request->getContent(), true));
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('app_client_controller_show', ["id" => $client->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_client_controller_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->json(['error' => 'Client edit error']);
+        return $this->render('client_controller/edit.html.twig', [
+            'client' => $client,
+            'form' => $form,
+        ]);
     }
 
     #[Route('/{id}', name: 'app_client_controller_delete', methods: ['DELETE'])]
-    public function delete(Client $client): Response
+    public function delete(Request $request, Client $client): Response
     {
-        $this->entityManager->remove($client);
-        $this->entityManager->flush();
+        if ($this->isCsrfTokenValid('delete'.$client->getId(), $request->getPayload()->getString('_token'))) {
+            $this->entityManager->remove($client);
+            $this->entityManager->flush();
+        }
 
         return $this->redirectToRoute('app_client_controller_index', [], Response::HTTP_SEE_OTHER);
     }

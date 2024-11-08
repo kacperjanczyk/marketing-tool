@@ -1,0 +1,160 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Client{% endblock %}
+
+{% block content %}
+    <h5 class="text-center text-2xl">{{ client.name }}</h5>
+    <div class="flex w-full">
+        <div class="w-2/3 p-4">
+            <form class="space-y-5">
+                <div class="flex space-x-4">
+                    <div class="flex-1">
+                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                        <input type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name" value="{{ client.name ?? '' }}" required />
+                    </div>
+                    <div class="flex-1">
+                        <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+                        <input type="text" id="address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="address" value="{{ client.address ?? '' }}" />
+                    </div>
+                </div>
+                <div class="flex space-x-4">
+                    <div class="flex-1">
+                        <label for="city" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City</label>
+                        <input type="text" id="city" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="city" value="{{ client.city ?? '' }}" />
+                    </div>
+                    <div class="flex-1">
+                        <label for="region" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Region</label>
+                        <input type="text" id="region" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="region" value="{{ client.region ?? '' }}" />
+                    </div>
+                </div>
+                <div class="flex space-x-4">
+                    <div class="flex-1">
+                        <label for="country" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Country</label>
+                        <input type="text" id="country" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="country" value="{{ client.country ?? '' }}" />
+                    </div>
+                    <div class="flex-1">
+                        <label for="postCode" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Post code</label>
+                        <input type="text" id="postCode" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="postCode" value="{{ client.postCode ?? '' }}" />
+                    </div>
+                </div>
+                <div class="flex space-x-4">
+                    <div class="flex-1">
+                        <label for="ownerName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Owner name</label>
+                        <input type="text" id="ownerName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="ownerName" value="{{ client.ownerName ?? '' }}" />
+                    </div>
+                    <div class="flex-1">
+                        <label for="ownerSurname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Owner surname</label>
+                        <input type="text" id="ownerSurname" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="ownerSurname" value="{{ client.ownerSurname ?? '' }}" />
+                    </div>
+                </div>
+                <div class="flex space-x-4">
+                    <div class="flex-1">
+                        <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
+                        <input type="text" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="phone" value="{{ client.phone ?? '' }}" />
+                    </div>
+                    <div class="flex-1">
+                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                        <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="email" value="{{ client.email ?? '' }}" />
+                    </div>
+                </div>
+                <div class="flex space-x-4">
+                    <div class="flex-1">
+                        <label for="www" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">WWW</label>
+                        <input type="text" id="www" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="www" value="{{ client.www ?? '' }}" />
+                    </div>
+                    <div class="flex-1">
+                        <label for="ceidgUrl" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">CEIDG url</label>
+                        <input type="text" id="ceidgUrl" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="ceidgUrl" value="{{ client.ceidgUrl ?? '' }}" />
+                    </div>
+                </div>
+                <div class="flex space-x-4">
+                    <div class="flex-1">
+                        <label for="taxId" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tax ID</label>
+                        <input type="text" id="taxId" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="taxId" value="{{ client.taxId ?? '' }}" />
+                    </div>
+                    <div class="flex-1">
+                        <label for="status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
+                        <select id="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option value="active" {% if client.status == 'active' %}selected{% endif %}>Active</option>
+                            <option value="interested" {% if client.status == 'interested' %}selected{% endif %}>Interested</option>
+                            <option value="lead" {% if client.status == 'lead' %}selected{% endif %}>Lead</option>
+                            <option value="not_interested" {% if client.status == 'not_interested' %}selected{% endif %}>Not Interested</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" onclick="updateClient({{ client.id }})" class="text-white bg-green-700 hover:bg-green-800 border-2 border-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Update
+                </button>
+                {% if client.www and client.www != '' %}
+                    <a type="button" href="{{ client.www }}" target="_blank" class="bg-blue-700 border-2 border-blue-700 text-white hover:bg-blue-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        WWW
+                    </a>
+                {% endif %}
+                {% if client.ceidgUrl and client.ceidgUrl != '' %}
+                    <a type="button" href="{{ client.ceidgUrl }}" target="_blank" class="bg-blue-700 border-2 border-blue-700 text-white hover:bg-blue-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        CEIDG
+                    </a>
+                {% endif %}
+                <button type="button" onclick="deleteClient('{{ client.id }}')" class="bg-red-600 border-2 border-red-600 text-white hover:bg-red-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Delete
+                </button>
+            </form>
+        </div>
+        <div class="w-1/3 p-4">
+            <label for="notes" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Notes</label>
+            <textarea id="notes" rows="28" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter notes...">{{ client.notes ?? '' }}</textarea>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script>
+        function deleteClient(clientId) {
+            if (confirm("Are you sure tou want to delete this client?")) {
+                fetch(`/client/${clientId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({
+                        '_token': '{{ csrf_token('delete' ~ client.id) }}'
+                    })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = '{{ path('app_client_controller_index') }}';
+                    } else {
+                        alert("Error deleting client.");
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        }
+
+        function updateClient(clientId) {
+            const formElement = document.querySelector('form');
+            const formData = new FormData(formElement);
+
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            fetch(`/client/${clientId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Client updated successfully!');
+                    window.location.reload();
+                } else {
+                    alert('Error updating client.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+{% endblock %}
