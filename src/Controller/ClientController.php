@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Client;
 use App\Form\ClientType;
+use App\Repository\ClientRepository;
 use App\Service\CEIDGService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,6 +20,14 @@ final class ClientController extends AbstractController
         private readonly CEIDGService $CEIDGService,
     )
     {}
+
+    #[Route(name: 'app_client_controller_index', methods: ['GET'])]
+    public function index(ClientRepository $clientRepository): Response
+    {
+        return $this->json([
+            'clients' => $clientRepository->findAll()
+        ]);
+    }
 
     #[Route('/new', name: 'app_client_new', methods: ['POST'])]
     public function new(Request $request): Response
@@ -36,6 +45,43 @@ final class ClientController extends AbstractController
         $this->entityManager->flush();
 
         return $this->json(['message' => 'Client added successfully']);
+    }
+
+    #[Route('/{id}', name: 'app_client_controller_show', methods: ['GET'])]
+    public function show(Client $client): Response
+    {
+        return $this->json([
+            'client' => $client
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'app_client_controller_edit', methods: ['GET', 'PUT'])]
+    public function edit(Request $request, Client $client): Response
+    {
+        $form = $this->createForm(ClientType::class, $client);
+        if ($request->getMethod() === 'GET') {
+            return $this->json([
+                'form' => $form->createView()
+            ]);
+        }
+
+        $form->submit(json_decode($request->getContent(), true));
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('app_client_controller_show', ["id" => $client->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->json(['error' => 'Client edit error']);
+    }
+
+    #[Route('/{id}', name: 'app_client_controller_delete', methods: ['DELETE'])]
+    public function delete(Client $client): Response
+    {
+        $this->entityManager->remove($client);
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('app_client_controller_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/import', name: 'app_client_import', methods: ['GET'])]
