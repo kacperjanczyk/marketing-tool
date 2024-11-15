@@ -16,7 +16,6 @@ use Symfony\Component\Routing\Attribute\Route;
 final class ClientController extends AbstractController
 {
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
         private readonly CEIDGService $CEIDGService,
     )
     {}
@@ -30,7 +29,7 @@ final class ClientController extends AbstractController
     }
 
     #[Route('/new', name: 'app_client_new', methods: ['GET', 'POST'])]
-    public function new(Request $request): Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $client = new Client();
 
@@ -38,8 +37,8 @@ final class ClientController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted()  && $form->isValid()) {
-            $this->entityManager->persist($client);
-            $this->entityManager->flush();
+            $entityManager->persist($client);
+            $entityManager->flush();
 
             return $this->redirectToRoute('app_client_controller_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -50,7 +49,7 @@ final class ClientController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_client_controller_show', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'app_client_controller_show', methods: ['GET'])]
     public function show(Client $client): Response
     {
         return $this->render('client_controller/edit.html.twig', [
@@ -58,14 +57,14 @@ final class ClientController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_client_controller_details', methods: ['PUT'])]
-    public function details(Request $request, Client $client): Response
+    #[Route('/{id}/edit', name: 'app_client_controller_details', methods: ['PUT'])]
+    public function details(Request $request, EntityManagerInterface $entityManager, Client $client): Response
     {
         $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->flush();
+            $entityManager->flush();
 
             return $this->redirectToRoute('app_client_controller_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -76,12 +75,12 @@ final class ClientController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_client_controller_delete', methods: ['DELETE'])]
-    public function delete(Request $request, Client $client): Response
+    #[Route('/{id}/delete', name: 'app_client_controller_delete', methods: ['DELETE'])]
+    public function delete(Request $request, EntityManagerInterface $entityManager, Client $client): Response
     {
         if ($this->isCsrfTokenValid('delete'.$client->getId(), $request->getPayload()->getString('_token'))) {
-            $this->entityManager->remove($client);
-            $this->entityManager->flush();
+            $entityManager->remove($client);
+            $entityManager->flush();
         }
 
         return $this->redirectToRoute('app_client_controller_index', [], Response::HTTP_SEE_OTHER);
